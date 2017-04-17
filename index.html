@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magical Animal Points!!!</title>
+
+  <style type="text/css">
+
+    .dog-image {
+    width: 200px;
+    height: 132px;
+    display: inline-block;
+	float: left;
+	margin: 0px;
+	padding: 0px;;
+    }    
+
+    .cat-image {
+    width: 200px;
+    height: auto;
+	display: inline-block;
+	float: right;
+	margin: 0px;
+	padding: 0px;
+    }
+
+    .sloth-image {
+    width: 200px;
+    height: auto;
+	display: inline-block;
+	float: left;
+	margin: 0px;
+	padding: 0px;  
+
+    }
+
+    .ocelot-image {
+    width: 200px;
+    height: auto;
+	display: inline-block;
+	float: right;
+	margin: 0px;
+	padding: 0px;
+    }
+
+p{
+	font-size: 18pt;
+}
+
+  </style>
+
+  	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+</head>
+<body>
+
+
+	<div  class="container main-section-container">
+	    	<div class="row">
+	          	<div class="jumbotron" id="animalPoints">
+	          		<h2> Click animals with magical values and match the random number... GAME!!!</h2>
+	        	</div>
+	        </div>
+
+			<br>
+
+	    	<div class="row">
+	          	<div class="col-md-10" id="textRow">
+	          		<p> You will be given a random number at start of the game.</p>
+	          		<p> There are four random animals below- each click on an animal adds a specific amount of points to your total score.</p>
+	          		<p>You win the game by matching your total score to the displayed target number</p>
+	          		<p>The value of each animal is hidden until you click on it and every new game has new values for each animal as well as the new target score.</p>
+	        	</div>
+	        </div>
+
+			<br>
+
+	    	<div class="row">
+	          	<div class="col-md-5" id="targetNumberRow">
+
+	          		<h3> Target Number:  
+	          		<span id= "targetNumberDisplayed"></span></h3>
+	          		
+	          		<h5> (the number you want to match) </h5>
+
+	        	</div>
+	        	<div class="col-md-1"></div>
+
+	        	<div class="col-md-2" id="WL">
+
+	          		<h4> Wins: <span id= "winDisplay"></span></h4>
+	          		
+					<h4> Losses: <span id= "lossDisplay"></span></h4>
+
+	        	</div>
+	        	<div class="col-md-2"></div>
+
+
+	        </div>
+
+	    	<br>
+
+
+	        <div class="row">
+	       		<div class="col-md-1"></div>
+
+	          	<div class="col-md-5" id="animalRowLeft">
+		          	<div id="dogs"></div>
+		          
+		          	<div id="cats"></div>
+
+		        </div>
+
+		        <div class="col-md-5" id="animalRowRight">
+		        
+		          	<div id="sloths"></div>
+
+		          	<div id="ocelots"></div>
+
+		        </div>
+		        <div class="col-md-1"></div>
+
+	        </div>
+
+	       	        
+	    	<br>
+
+	    	<div class="row">
+	    		<div class="col-md-2"></div>
+
+	          	<div class="col-md-6" id="myCurrentScoreRow">
+	          		<h2> Your total score is:
+	          		<span id= "counter"></span>
+	          		</h2>
+	        	</div>
+
+	        	<div class="col-md-3"></div>
+	        </div>
+	        
+	    	<br>
+
+	</div>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+				    var wins = 0;
+				    var losses = 0;
+				    var counter = 0;
+
+				    //gives us numbers between 19-120
+				    var targetNumber = Math.floor(Math.random() * (120-19)+19)
+
+
+					$("#targetNumberDisplayed").text(targetNumber);
+
+
+							//create all 4 animals images with points attached
+					var numberOptions = [Math.floor(Math.random() * (12-1)+1)];
+
+				     for (var i = 0; i < numberOptions.length; i++) {
+
+				     		var imageDog = $("<img>");
+
+				      		imageDog.addClass("dog-image");
+
+				     		imageDog.attr("src", "https://images-na.ssl-images-amazon.com/images/G/01/img15/pet-products/small-tiles/23695_pets_vertical_store_dogs_small_tile_8._CB312176604_.jpg");
+
+				     		imageDog.attr("data-dogvalue", numberOptions[i]);
+
+				     		$("#dogs").append(imageDog);
+				    }
+
+				   $(".dog-image").on("click", function() {
+
+				   		var dogValue = ($(this).attr("data-dogvalue"));
+
+				    	dogValue = parseInt(dogValue);
+
+				   		counter += dogValue;
+
+          				$("#counter").html(counter);
+
+				     });
+
+				   	var numberOptions = [Math.floor(Math.random() * (12-1)+1)];
+
+				      for (var i = 0; i < numberOptions.length; i++) {
+
+
+				     		var imageCat = $("<img>");
+
+				      		imageCat.addClass("cat-image");
+
+				     		imageCat.attr("src", "http://i.dailymail.co.uk/i/pix/2014/10/15/1413408700148_wps_39_image001_jpg.jpg");
+
+				     		imageCat.attr("data-catvalue", numberOptions[i]);
+
+				     		$("#cats").append(imageCat);
+				    }
+
+				   $(".cat-image").on("click", function() {
+
+				   		var catValue = ($(this).attr("data-catvalue"));
+
+				    	catValue = parseInt(catValue);
+
+				   		counter += catValue;
+
+				   		$("#counter").html(counter);
+
+				     });
+
+
+				   	var numberOptions = [Math.floor(Math.random() * (12-1)+1)];
+
+				      for (var i = 0; i < numberOptions.length; i++) {
+
+
+				     		var imageSloth = $("<img>");
+
+				      		imageSloth.addClass("sloth-image");
+
+				     		imageSloth.attr("src", "http://weknowyourdreams.com/images/sloth/sloth-01.jpg");
+
+				     		imageSloth.attr("data-catvalue", numberOptions[i]);
+
+				     		$("#sloths").append(imageSloth);
+				    }
+
+				   $(".sloth-image").on("click", function() {
+
+				   		var slothValue = ($(this).attr("data-catvalue"));
+
+				    	slothValue = parseInt(slothValue);
+
+				   		counter += slothValue;
+
+						$("#counter").html(counter);
+
+				     });
+
+
+				   	var numberOptions = [Math.floor(Math.random() * (12-1)+1)];
+
+				      for (var i = 0; i < numberOptions.length; i++) {
+
+
+				     		var imageOcelot = $("<img>");
+
+				      		imageOcelot.addClass("ocelot-image");
+
+				     		imageOcelot.attr("src", "http://felid-tag.org/wp-content/uploads/2014/03/ocelot-fest-2010-086Nova-Mackentley.jpg");
+
+				     		imageOcelot.attr("data-ocelotvalue", numberOptions[i]);
+
+				     		$("#ocelots").append(imageOcelot);
+				    }
+
+				   $(".ocelot-image").on("click", function() {
+
+				   		var ocelotValue = ($(this).attr("data-ocelotvalue"));
+
+				    	ocelotValue = parseInt(ocelotValue);
+
+				   		counter += ocelotValue;
+
+				        $("#counter").html(counter);
+
+				     	});
+				   //build in function to reset counter to 0 and create a new target number
+				    function reset(){
+      					counter = 0;
+      					var targetNumber = Math.floor(Math.random() * (120-19)+19)
+      				}			
+
+      			//if win, wins go up by one, if lose, losses go up by one, and game resets for both.
+				if (counter === targetNumber) {
+			    	wins++;
+			    	alert("You win!!"); 
+					$("#wins").html(winDisplay);
+					reset()
+
+			    
+			    } else if (counter > targetNumber) {
+			    	losses++;
+			    	alert("You lose!!");  
+					$("#losses").html(lossDisplay);
+				 	reset()
+			    }
+
+	
+    });
+
+	
+    </script>
+
+</body>
+</html>
+
+
+
+
